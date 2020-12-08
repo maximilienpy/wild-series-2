@@ -114,8 +114,8 @@ class Program
 
     public function addSeason(Season $season): self
     {
-        if (!$this->season->contains($season)) {
-            $this->season[] = $season;
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
             $season->setProgram($this);
         }
 
@@ -124,7 +124,7 @@ class Program
 
     public function removeSeason(Season $season): self
     {
-        if ($this->season->removeElement($season)) {
+        if ($this->seasons->removeElement($season)) {
             // set the owning side to null (unless already changed)
             if ($season->getProgram() === $this) {
                 $season->setProgram(null);

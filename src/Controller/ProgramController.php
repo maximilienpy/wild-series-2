@@ -44,7 +44,7 @@ class ProgramController extends AbstractController
         ->getRepository(Program::class)
         ->findOneBy(['id' => $id]);
 
-        // $seasons = $program->getSeasons(); 
+        $seasons = $program->getSeason(); 
         
         if (!$program) {
             throw $this->createNotFoundException(
@@ -53,7 +53,7 @@ class ProgramController extends AbstractController
         }
 
         return $this->render('program/show.html.twig', [
-            'program' => $program,
+            'program' => $program, 'seasons' => $seasons,
     ]);
     }
 
@@ -75,7 +75,7 @@ class ProgramController extends AbstractController
 
 
 
-         $episodes = $seasons->getEpisode(); 
+         $episodes = $seasons->getEpisodes(); 
 
         return $this->render('program/season_show.html.twig', [
             'program' => $program,
