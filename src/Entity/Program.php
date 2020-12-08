@@ -44,11 +44,11 @@ class Program
     /**
      * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program")
      */
-    private $season;
+    private $seasons;
 
     public function __construct()
     {
-        $this->season = new ArrayCollection();
+        $this->seasons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,9 +107,9 @@ class Program
     /**
      * @return Collection|Season[]
      */
-    public function getSeason(): Collection
+    public function getSeasons(): Collection
     {
-        return $this->season;
+        return $this->seasons;
     }
 
     public function addSeason(Season $season): self

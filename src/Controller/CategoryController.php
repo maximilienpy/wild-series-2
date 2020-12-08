@@ -16,7 +16,7 @@ class CategoryController extends AbstractController
     public function index(): Response
     {
     /**
-     * @Route("/", name="index")
+     * @Route("/categories", name="category_")
      */
         $categories = $this->getDoctrine()
         ->getRepository(Category::class)
@@ -30,30 +30,32 @@ class CategoryController extends AbstractController
     /**
     * Getting a program by category
     *
-    * @Route("/{categoryName}", name="show")
+    * @Route("/{categoryName}", name="show",  methods={"GET"})
     * @return Response
     */
     public function show(string $categoryName): Response
     {
         $category = $this->getDoctrine()
-        ->getRepository(Program::class)
-        ->findOneBy(['name' => $categoryName]);
+        ->getRepository(Category::class)
+        ->findBy(['name' => $categoryName]);
 
-        $programs = $this->getDoctrine()
-        ->getRepository(Program::class)
-        ->findBy(['category' => $category], 
-                ['id' => 'DESC'],
-                3
-        );
-        
         if (!$category) {
             throw $this->createNotFoundException(
-                'No program with id : '.$categoryName.' found in program\'s table.'
+                'Aucune série trouvée dans la catégorie : ' .$categoryName. ''
+            );
+        } else {
+            $programs = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findBy(
+                ['category' => $category],
+                ['id' => 'DESC'],
+                3
             );
         }
 
         return $this->render('category/show.html.twig', [
             'programs' => $programs,
+            'category'=> $category
     ]);
     }
 }

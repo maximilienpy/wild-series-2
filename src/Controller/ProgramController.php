@@ -20,7 +20,7 @@ class ProgramController extends AbstractController
     * Show all rows from Program’s entity
      *
      * @Route("/", name="index")
-     * @return Response A response instance
+     * @return Response
      */
     public function index(): Response
     {
@@ -34,15 +34,12 @@ class ProgramController extends AbstractController
     }
 
     /**
-    * Getting a program by id
-    *
-    * @Route("/show/{id<^[0-9]+$>}", name="show")
-    * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
-    * @return Response
-    */
+     * @Route("/{id}", requirements={"id"="\d+"}, name="show", methods={"GET"})
+     * @return Response
+     */
     public function show(Program $program): Response
     {
-        $seasons = $program->getSeason(); 
+        $seasons = $program->getSeasons(); 
         
         if (!$program) {
             throw $this->createNotFoundException(
@@ -55,20 +52,18 @@ class ProgramController extends AbstractController
     ]);
     }
 
-        /**
+    /**
      * Getting a season 
-     *
-     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
-     * @ParamConverter("seasons", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
+     * @Route("/{program}/seasons/{season}", requirements={"season"="\d+"}, name="season_show", methods={"GET"})
      * @return Response
      */
-    public function showSeason(Program $program, Season $seasons) :Response
+    public function showSeason(Program $program, Season $season) :Response
     {
-        $episodes = $seasons->getEpisodes(); 
+        $episodes = $season->getEpisodes(); 
 
         return $this->render('program/season_show.html.twig', [
             'program' => $program,
-            'seasons' => $seasons,
+            'season' => $season,
             'episodes' => $episodes,
         ]);
 
@@ -77,16 +72,16 @@ class ProgramController extends AbstractController
     /**
      * Getting an episode
      *
-     * @Route("/{programId}/seasons/{seasonId}/episodes/{episodeId}", name="episode_show")
+     * @Route("/{programId}/season/{seasonId}/episode/{episodeId}", name="episode_show")
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
-     * @ParamConverter("seasons", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
-     * @ParamConverter("episodes", class="App\Entity\Episode", options={"mapping": {"episodeId": "id"}})
+     * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
+     * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"episodeId": "id"}})
      * @return Response
      */
-    public function showEpisode(Program $program, Season $seasons, Episode $episodes) :Response
+    public function showEpisode(Program $program, Season $season, Episode $episode) :Response
     {     
         return $this->render('program/episode_show.html.twig', [
-            'program' => $program, 'seasons' => $seasons, 'episodes' => $episodes
+            'program' => $program, 'season' => $season, 'episode' => $episode
         ]);
     }
 }

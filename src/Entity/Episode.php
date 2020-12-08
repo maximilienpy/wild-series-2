@@ -18,11 +18,6 @@ class Episode
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $season_id;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -46,18 +41,6 @@ class Episode
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSeasonId(): ?int
-    {
-        return $this->season_id;
-    }
-
-    public function setSeasonId(int $season_id): self
-    {
-        $this->season_id = $season_id;
-
-        return $this;
     }
 
     public function getTitle(): ?string
