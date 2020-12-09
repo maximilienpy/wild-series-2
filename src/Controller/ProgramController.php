@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\ProgramType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\Program;
@@ -30,6 +32,28 @@ class ProgramController extends AbstractController
 
         return $this->render('program/index.html.twig', [
             'programs' => 'programs',
+        ]);
+    }
+
+    /**
+     * The controller for the program add form
+     *
+     * @Route("/new", name="new")
+     */
+    public function new(Request $request) : Response
+    {
+        $program = new Program();
+        $form = $this->createForm(ProgramType::class, $program);
+        $form->handleRequest($request);
+            if ($form->isSubmitted()) {
+                $programManager = $this->getDoctrine()->getManager();
+                $programManager->persist($program);
+                $programManager->flush();
+                return $this->redirectToRoute('program_index');
+                }    
+
+        return $this->render('program/new.html.twig', [
+            "form" => $form->createView(),
         ]);
     }
 
