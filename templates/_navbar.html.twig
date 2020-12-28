@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand-primary" href="/">Wild Series</a>
+    <a class="navbar-brand-primary" href="/">WILD SERIES</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,11 +7,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('program_index') }}">Programmes</a>
+          <a class="nav-link" href="{{ path('category_index') }}">GENRES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('program_index') }}">SERIES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('actor_index') }}">ACTEURS</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
+            VOIR PLUS
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -22,8 +28,8 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Go</button>
       </form>
     </div>
   </nav>
