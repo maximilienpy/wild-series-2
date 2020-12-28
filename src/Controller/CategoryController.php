@@ -4,22 +4,22 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use App\Form\CategoryType;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
 use App\Entity\Program;
+use Symfony\Component\HttpFoundation\Request;
 
+/**
+* @Route("/categories", name="category_")
+*/
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/categories", name="category_")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
-    /**
-     * @Route("/categories", name="category_")
-     */
         $categories = $this->getDoctrine()
         ->getRepository(Category::class)
         ->findAll();
@@ -35,7 +35,7 @@ class CategoryController extends AbstractController
      *
      * @Route("/new", name="new")
      */
-    public function new(Request $request) : Response
+    public function new(Request $request)
     {
         // Create a new Category Object
         $category = new Category();
@@ -63,9 +63,9 @@ class CategoryController extends AbstractController
     } 
 
     /**
-    * Getting a program by category
     *
-    * @Route("/{categoryName}", name="show",  methods={"GET"})
+    *
+    * @Route("/{categoryName}", name="show")
     * @return Response
     */
     public function show(string $categoryName): Response
@@ -74,20 +74,20 @@ class CategoryController extends AbstractController
         ->getRepository(Category::class)
         ->findBy(['name' => $categoryName]);
 
-        if (!$category) {
-            throw $this->createNotFoundException(
-                'Aucune série trouvée dans la catégorie : ' .$categoryName. ''
-            );
-        } else {
-            $programs = $this->getDoctrine()
+        $programs = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findBy(
                 ['category' => $category],
                 ['id' => 'DESC'],
                 3
             );
-        }
 
+        if (!$category) {
+            throw $this->createNotFoundException(
+                'Aucune série trouvée dans la catégorie : ' .$categoryName. ''
+            );
+        }
+        
         return $this->render('category/show.html.twig', [
             'programs' => $programs,
             'category'=> $category

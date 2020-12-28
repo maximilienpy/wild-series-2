@@ -31,7 +31,7 @@ class ProgramController extends AbstractController
         ->findAll();
 
         return $this->render('program/index.html.twig', [
-            'programs' => 'programs',
+            'programs' => $programs,
         ]);
     }
 

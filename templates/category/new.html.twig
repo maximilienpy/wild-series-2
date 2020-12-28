@@ -1,8 +1,14 @@
 {% extends "base.html.twig" %}
 
+
+{% block title %}New Category{% endblock %}
+
 {% block body %}
-    {{ form(form) }}
+<div class="container-fluid mt-4">
+    <h1>Ajouter une nouvelle catégorie</h1>
+    {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type='submit' value='Add category'>
+    <input type='submit' value='Add a new category'>
     {{ form_end(form) }}
-{% endblock %}
+</div>
+    {% endblock %}
