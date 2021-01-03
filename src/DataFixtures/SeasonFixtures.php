@@ -8,7 +8,7 @@ use App\Entity\Season;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
 
-class SeasonFixture extends Fixture implements DependentFixtureInterface
+class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {

@@ -8,7 +8,7 @@ use App\Entity\Episode;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
 
-class EpisodeFixture extends Fixture implements DependentFixtureInterface
+class EpisodeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
