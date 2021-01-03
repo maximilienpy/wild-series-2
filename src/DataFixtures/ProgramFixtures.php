@@ -1,19 +1,16 @@
 <?php
 
-
 namespace App\DataFixtures;
 
-use Faker;
 use App\Entity\Program;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-
+use Faker;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
     const PROGRAMS = [
-
         'Walking Dead' => [
                             'summary' => 'Le policier Rick Grimes se réveille après un long coma. Il découvre avec effarement que le monde, ravagé par une épidémie, est envahi par les morts-vivants.',
                             'category' => 'categorie_4',
@@ -40,25 +37,26 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                             ],
 ];
 
-
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-
         $i = 0;
         foreach (self::PROGRAMS as $title => $data) {
             $program = new Program();
             $program->setTitle($title);
-            $program->setSummary($data['summary']); 
+            $program->setSummary($data['summary']);
+            $program->setPoster($faker->imageUrl(500,400));
+            $this->addReference('program_' . $i, $program);
+            $program->setCategory($this->getReference('category_4'));                     
+            $this->setReference('program_' . $i, $program);
             $manager->persist($program);
-            $this->addReference('program_'.$i, $program);
             $i++;
         }
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies()  
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class];  
     }
 }
