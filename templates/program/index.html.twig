@@ -14,7 +14,7 @@
                     <h5 class="card-title primary"> {{ loop.index }} {{ program.title }} - Catégories:
                         {{ program.category.name }}</h5>
                     <p class="card-text">{{ program.summary}}</p>
-                    <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">Détails</a>
+                    <a href="{{ path("program_show", { slug: program.slug }) }}" class="btn btn-primary">Détails</a>
                 </div>
             </div>
         </div>

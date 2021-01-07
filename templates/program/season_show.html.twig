@@ -7,10 +7,10 @@
     <div class="media-body">
         <h1>{{ program.title }} - Saison {{ season.number }}<h1>
                 <h3>{{ season.description }}</h3>
-                <p>Episodes : </p>
+                <h5>Episodes : </h5>
                 {% for episode in episodes %}
                 <div>
-                    <a href="{{ path("program_episode_show", {"programId": program.id, "seasonId": season.id, "episodeId": episode.id })}}">{{episode.number}} ({{episode.title}})</a>
+                    <a href="{{ path("program_episode_show", { "slug" : program.slug, "seasonId": season.id, "episodeId": episode.id })}}">{{episode.number}} - "{{episode.title}}"</a>
                 </div>
                 {% else %}
                 <p>Pas d'épisodes disponibles</p>
